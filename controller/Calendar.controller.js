@@ -2,7 +2,7 @@ sap.ui.define([
     "./BaseController",
 ], function (BaseController) {
     "use strict"
-    return BaseController.extend("pharelyshau.controller.Detail", {
+    return BaseController.extend("ryndenko.controller.Detail", {
 
         onInit: function () {
             let oRouter = this.getOwnerComponent().getRouter()
