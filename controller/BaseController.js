@@ -28,7 +28,7 @@ sap.ui.define([
 		// HEADER
 		onPressSendEmail: function () {
 			const sEmail = this.getModel("resume").getProperty("/Email");
-			sap.m.URLHelper.triggerEmail(sEmail, "Email from harelyshau.dev website");
+			sap.m.URLHelper.triggerEmail(sEmail, "Email from ryndenko.site website");
 		},
 
 		onPressOpenOverflowMenu: function (oEvent) {
@@ -71,7 +71,7 @@ sap.ui.define([
 		},
 
 		onPressShowCode: function() {
-            const sWebsiteURL = "https://github.com/Eldyby/Resume";
+            const sWebsiteURL = "https://github.com/ryndenko/Resume";
             sap.m.URLHelper.redirect(sWebsiteURL, true);
         },
 
