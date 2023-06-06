@@ -9,7 +9,7 @@ sap.ui.define([
 
     "use strict"
 
-    return BaseController.extend("pharelyshau.controller.Resume", {
+    return BaseController.extend("ryndenko.controller.Resume", {
 
         formatter: formatter,
 
@@ -20,7 +20,7 @@ sap.ui.define([
 
         // Header
         onPressDownloadResume: function () {
-            const sFileURL = "/resource/file/Resume Pavel Harelyshau.pdf";
+            const sFileURL = "/resource/file/Resume Vladimir Ryndenko.pdf";
             sap.m.URLHelper.redirect(sFileURL, true);
         },
 
@@ -30,7 +30,7 @@ sap.ui.define([
 
             if (!this._oRelocationPopover) {
                 Fragment.load({
-                    name: "pharelyshau.fragment.Resume.RelocationPopover",
+                    name: "ryndenko.fragment.Resume.RelocationPopover",
                     controller: this
                 }).then((oPopover) => {
                     this.getView().addDependent(oPopover);
@@ -58,7 +58,7 @@ sap.ui.define([
 
             if (!this._oCompanyPopover) {
                 Fragment.load({
-                    name: "pharelyshau.fragment.Resume.CompanyPopover",
+                    name: "ryndenko.fragment.Resume.CompanyPopover",
                     controller: this
                 }).then((oPopover) => {
                     this.getView().addDependent(oPopover);
