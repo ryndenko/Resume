@@ -43,7 +43,7 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
                     "bundleName": "pharelyshau.i18n.i18n",
-                    "supportedLocales": ["en", "de", "ru"],
+                    "supportedLocales": ["en", "ru"],
 					"fallbackLocale": "en"
                 }
             }
