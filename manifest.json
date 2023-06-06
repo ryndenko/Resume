@@ -1,7 +1,7 @@
 {
     "_version": "1.54.0",
     "sap.app": {
-        "id": "pharelyshau",
+        "id": "ryndenko",
         "type": "application",
         "i18n": {
 			"bundleUrl": "i18n/i18n.properties",
@@ -42,14 +42,14 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "pharelyshau.i18n.i18n",
+                    "bundleName": "ryndenko.i18n.i18n",
                     "supportedLocales": ["en", "ru"],
 					"fallbackLocale": "en"
                 }
             }
         },
         "rootView": {
-            "viewName": "pharelyshau.view.App",
+            "viewName": "ryndenko.view.App",
             "type": "XML",
             "async": true,
             "id": "app"
@@ -59,7 +59,7 @@
                 "routerClass": "sap.m.routing.Router",
                 "type": "View",
                 "viewType": "XML",
-                "path": "pharelyshau.view",
+                "path": "ryndenko.view",
                 "controlId": "app",
                 "controlAggregation": "pages"
             },
