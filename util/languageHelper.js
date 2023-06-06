@@ -18,7 +18,7 @@ sap.ui.define([
             }
 
             // check for supported languages
-            const oManifest = sap.ui.getCore().getComponent("container-pharelyshau").getManifest();
+            const oManifest = sap.ui.getCore().getComponent("container-ryndenko").getManifest();
             const aSupportedLanguages = oManifest["sap.app"].i18n.supportedLocales;
             if (!aSupportedLanguages.includes(sLanguageSAP)) {
                 sLanguageSAP = 'en';
