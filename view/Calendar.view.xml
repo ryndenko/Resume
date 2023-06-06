@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="pharelyshau.controller.Calendar"
+    controllerName="ryndenko.controller.Calendar"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
