@@ -15,12 +15,12 @@ sap.ui.define([
 
         createResumeModel: function () {
             const sLanguage = Configuration.getLanguage();
-            const oManifest = sap.ui.getCore().getComponent("container-pharelyshau").getManifest();
+            const oManifest = sap.ui.getCore().getComponent("container-ryndenko").getManifest();
             const aSupportedLanguages = oManifest["sap.app"].i18n.supportedLocales;
             if (!aSupportedLanguages.includes(sLanguage)) {
                 sLanguage = "en";
             }
-            const sFilePath = `pharelyshau/resource/data/Resume_${sLanguage}.json`;
+            const sFilePath = `ryndenko/resource/data/Resume_${sLanguage}.json`;
             const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
             return oModel;
         }
