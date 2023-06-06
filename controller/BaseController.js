@@ -7,7 +7,7 @@ sap.ui.define([
 ], function (Controller, UIComponent, Fragment, themeHelper, languageHelper) {
 	"use strict";
 
-	return Controller.extend("pharelyshau.controller.BaseController", {
+	return Controller.extend("ryndenko.controller.BaseController", {
 
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
@@ -36,7 +36,7 @@ sap.ui.define([
 
             if (!this._oOverflowMenu) {
                 Fragment.load({
-					name: "pharelyshau.fragment.OverflowMenu",
+					name: "ryndenko.fragment.OverflowMenu",
 					controller: this
 				}).then((oMenu) => {
 					this.getView().addDependent(oMenu);
@@ -71,7 +71,7 @@ sap.ui.define([
 		},
 
 		onPressShowCode: function() {
-            const sWebsiteURL = "https://github.com/harelyshau/harelyshau.dev";
+            const sWebsiteURL = "https://github.com/Eldyby/Resume";
             sap.m.URLHelper.redirect(sWebsiteURL, true);
         },
 
