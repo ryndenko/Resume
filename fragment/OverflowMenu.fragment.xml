@@ -25,8 +25,8 @@
             <MenuItem text="{i18n>btnEnglish}" press="onPressLanguage('en')"/>
             <MenuItem text="{i18n>btnRussian}" press="onPressLanguage('ru')"/>
         </MenuItem>
-        <MenuItem text="{i18n>btnShareLink}" press="onPressShareLink"
-            icon="{i18n>iShare}" startsSection="{device>/system/phone}"/>
+        <!--<MenuItem text="{i18n>btnShareLink}" press="onPressShareLink"-->
+            <!--icon="{i18n>iShare}" startsSection="{device>/system/phone}"/>-->
         <!--<MenuItem text="{i18n>btnShowCode}" press="onPressShowCode"-->
         <!--    icon="{i18n>iCode}"/>-->
     </Menu>
