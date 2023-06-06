@@ -1,5 +1,5 @@
 <mvc:View
-		controllerName="pharelyshau.controller.Resume"
+		controllerName="ryndenko.controller.Resume"
 		xmlns:mvc="sap.ui.core.mvc"
 		xmlns="sap.m"
 		xmlns:f="sap.f"
@@ -13,10 +13,10 @@
 						<Title text="{resume>/FirstName} {resume>/LastName}" wrapping="true"/>
 					</f:heading>
 					<f:snappedContent>
-						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
+						<core:Fragment fragmentName="ryndenko.fragment.Resume.SubTitle" type="XML"/>
 					</f:snappedContent>
 					<f:expandedContent>
-						<core:Fragment fragmentName="pharelyshau.fragment.Resume.SubTitle" type="XML"/>
+						<core:Fragment fragmentName="ryndenko.fragment.Resume.SubTitle" type="XML"/>
 					</f:expandedContent>
 					<f:actions>
 						<!-- Device Laptop -->
@@ -48,7 +48,7 @@
                     <Panel class="sapUiSmallMarginTop">
                         <Title text="{i18n>ttlSkills}" wrapping="true"/>
                         <VBox items="{resume>/SkillsByTypes}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.SkillsByType"
+							<core:Fragment fragmentName="ryndenko.fragment.Resume.SkillsByType"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
                     </Panel>
@@ -56,7 +56,7 @@
                     <Panel class="sapUiSmallMarginTop">
                         <Title text="{i18n>ttlExperience}" wrapping="true"/>
                         <VBox items="{resume>/Experience}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Experience"
+							<core:Fragment fragmentName="ryndenko.fragment.Resume.Experience"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
                     </Panel>
@@ -64,7 +64,7 @@
 					<Panel class="sapUiSmallMarginTop">
 						<Title text="{i18n>ttlEducation}" wrapping="true"/>
 						<VBox items="{resume>/Education}">
-							<core:Fragment fragmentName="pharelyshau.fragment.Resume.Education"
+							<core:Fragment fragmentName="ryndenko.fragment.Resume.Education"
 								type="XML" class="sapUiTinyMarginTop"/>
 						</VBox>
 					</Panel>
