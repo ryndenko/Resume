@@ -3,7 +3,7 @@ sap.ui.define([
    "sap/ui/model/json/JSONModel"
 ], function (BaseController, JSONModel) {
    "use strict";
-   return BaseController.extend("pharelyshau.controller.App", {
+   return BaseController.extend("ryndenko.controller.App", {
 
       onInit: function () {
          // apply content density mode to root view
