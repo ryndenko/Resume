@@ -3,7 +3,7 @@
     "LastName": "Ryndenko",
     "Position": "Frontend Developer",
     "Email": "pzromp@gmail.com",
-    "Summary": "Creative and passionate Software Engineer with 2,7 years experience in frontend developing, maintaining and supporting web applications using modern technologies and Agile methodology. Experienced in SAP products. I really enjoy creating useful and user-friendly applications that leave a pleasant user experience.",
+    "Summary": "Creative and passionate Software Engineer with 2,8 years experience in frontend developing, maintaining and supporting web applications using modern technologies and Agile methodology. Experienced in SAP products. I really enjoy creating useful and user-friendly applications that leave a pleasant user experience.",
     "SkillsByTypes": [
         {
             "Type": "Programming Skills",
@@ -45,7 +45,7 @@
                 "Logo": "/resource/image/JETBILogo.jpg"
             },
             "StartDate": "2022-02",
-            "EndDate": "2023-06",
+            "EndDate": "2023-07",
             "Description": "",
             "Projects": [
                 "SCP Module that helps users to effectively conduct meetings and resolve scheduled issues",
