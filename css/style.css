@@ -1,17 +1,70 @@
-.phResumePageContent {
-    max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
+/* RESUME */
+
+.phLimitedPageContent {
+	max-width: 750px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .sapUiTheme-sap_horizon .phResumePage .phToolbarSeparator {
-    border-bottom-color: #dedede !important;
+	border-bottom-color: #dedede !important;
 }
 
 .sapUiTheme-sap_horizon_dark .phResumePage .phToolbarSeparator {
-    border-bottom-color: #4a4a4a !important;
+	border-bottom-color: #4a4a4a !important;
 }
 
-.phResumeExperiencePositionMobile .sapMFlexItem {
-    height: 1.2rem;
+/* CALENDAR */
+
+.phCalendar .sapMPCHeadNavToolbar {
+	/* to remove borders on mobile device */
+	border-radius: 0 !important;
+}
+
+.phCalendar .sapMPCHeadActionsToolbar {
+	padding-right: 0;
+}
+
+@media (max-width: 600px) {
+	/* make padding for calenar default button */
+	#container-vryndenko---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 1rem !important;
+	}
+}
+
+@media (min-width: 601px) and (max-width: 1439px) {
+	/* make padding for calenar default button */
+	#container-vryndenko---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 2rem !important;
+	}
+}
+
+@media (min-width: 1440px) {
+	/* make padding for calenar default button */
+	#container-vryndenko---calendar--calendar-Header-ActionsToolbar-overflowButton,
+	.phResponsiveMarginEnd {
+		margin-right: 3rem !important;
+	}
+}
+
+.phNoMargin {
+	margin: 0 !important;
+}
+
+.phToolbarNoPaddingBegin {
+	padding-left: 0;
+}
+
+.phButton .sapMBtnIcon {
+	min-width: auto !important;
+}
+
+.phButton {
+	max-width: 100%;
+}
+
+.phButtonJoinToConference {
+	max-width: 80%;
 }
