@@ -2,6 +2,6 @@
     <HBox wrap="Wrap">
         <Label text="{/Position} /&#160;"/>
         <Label text="{i18n>lWilling}&#160;"/>
-        <Text text="{i18n>linkRelocateTo} {/RelocationPreference/Country}"/>
+        <Label text="{i18n>linkRelocateTo} {/RelocationPreference/Country}"/>
     </HBox>
 </core:FragmentDefinition>
