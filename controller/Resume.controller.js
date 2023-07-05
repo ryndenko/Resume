@@ -13,7 +13,7 @@ sap.ui.define(
 
 			// Header
 			onPressDownloadResume() {
-				const sFileURL = '/resource/file/Resume Vladimir Ryndenko..pdf';
+				const sFileURL = '/resource/file/Resume Vladimir Ryndenko.pdf';
 				sap.m.URLHelper.redirect(sFileURL, true);
 			},
 
