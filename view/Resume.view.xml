@@ -70,18 +70,6 @@
 						<Text text="•&#160; {Name}, {Year}" class="sapUiTinyMarginTop"/>
 					</VBox>
 				</Panel>
-				<!-- ACHIEVEMENTS -->
-				<Panel class="sapUiSmallMarginTop">
-					<Title text="{i18n>ttlAchievements}" wrapping="true"/>
-					<VBox items="{/Achievements}">
-						<HBox class="sapUiTinyMarginTop">
-							<core:Icon src="{Icon}" class="sapUiTinyMarginEnd"/>
-							<FormattedText htmlText="{= ${Name} + ' ' + (!${Link} 
-								? '' : '(' + ${parts: ['i18n>linkWithText', 'Link', 'LinkText'], formatter: 'formatMessage'} + ')')
-							}"/>
-						</HBox>
-					</VBox>
-				</Panel>
 				<!-- LANGUAGES -->
 				<Panel class="sapUiSmallMarginTop">
 					<Title text="{i18n>ttlLanguages}" wrapping="true"/>
