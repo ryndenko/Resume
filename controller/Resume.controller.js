@@ -1,83 +1,66 @@
-sap.ui.define([
-    "./BaseController",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/core/format/DateFormat",
-    "../model/models",
-    "../model/formatter"
-], function (BaseController, Fragment, JSONModel, DateFormat, models, formatter) {
+sap.ui.define(
+	['./BaseController', '../model/models', '../model/formatter'],
+	(BaseController, models, formatter) => {
+		'use strict';
 
-    "use strict"
+		return BaseController.extend('vryndenko.controller.Resume', {
+			formatter,
 
-    return BaseController.extend("ryndenko.controller.Resume", {
+			onInit() {
+				// set the resume model
+				this.setModel(models.createResumeModel());
+			},
 
-        formatter: formatter,
+			// Header
+			onPressDownloadResume() {
+				const sFileURL = '/resource/file/Resume Vladimir Ryndeko.pdf';
+				sap.m.URLHelper.redirect(sFileURL, true);
+			},
 
-        onInit: function () {
-            // set the resume model
-            this.setModel(models.createResumeModel(), "resume");
-        },
+			async onPressOpenRelocationPopover(oEvent) {
+				const oControl = oEvent.getSource();
+				const sPath = '/RelocationPreference';
 
-        // Header
-        onPressDownloadResume: function () {
-            const sFileURL = "/resource/file/Resume Vladimir Ryndenko.pdf";
-            sap.m.URLHelper.redirect(sFileURL, true);
-        },
+				if (!this.oRelocationPopover) {
+					this.oRelocationPopover = await this.loadFragment({
+						name: 'vryndenko.fragment.Resume.RelocationPopover'
+					});
+				}
 
-        onPressOpenRelocationPopover: function (oEvent) {
-            const oControl = oEvent.getSource();
-            const sBindingPath = "/RelocationPreference";
+				if (!this.isDialogOpen(this.oRelocationPopover, sPath)) {
+					this.oRelocationPopover.bindElement(sPath);
+					this.oRelocationPopover.openBy(oControl);
+				} else {
+					this.oRelocationPopover.close();
+				}
+			},
 
-            if (!this._oRelocationPopover) {
-                Fragment.load({
-                    name: "ryndenko.fragment.Resume.RelocationPopover",
-                    controller: this
-                }).then((oPopover) => {
-                    this.getView().addDependent(oPopover);
-                    this._oRelocationPopover = oPopover;
-                    oPopover.bindElement({ path: sBindingPath, model: "resume" });
-                    oPopover.openBy(oControl);
-                    return oPopover;
-                });
-            } else if (!this.isOpenDialog(this._oRelocationPopover, sBindingPath)) {
-                this._oRelocationPopover.bindElement({ path: sBindingPath, model: "resume" });
-                this._oRelocationPopover.openBy(oControl);
-            } else {
-                this._oRelocationPopover.close();
-            }
-        },
+			onPressCloseRelocationPopover() {
+				this.oRelocationPopover.close();
+			},
 
-        onPressCloseRelocationPopover: function() {
-            this._oRelocationPopover.close();
-        },
+			// Page Content
+			async onPressOpenCompanyPopover(oEvent) {
+				const oControl = oEvent.getSource();
+				const sPath = oControl.getBindingContext().getPath() + '/Company';
 
-        // Page Content
-        onPressOpenCompanyPopover: function (oEvent) {
-            const oControl = oEvent.getSource();
-            const sBindingPath = oControl.getBindingContext("resume").getPath() + "/Company";
+				if (!this.oCompanyPopover) {
+					this.oCompanyPopover = await this.loadFragment({
+						name: 'vryndenko.fragment.Resume.CompanyPopover'
+					});
+				}
 
-            if (!this._oCompanyPopover) {
-                Fragment.load({
-                    name: "ryndenko.fragment.Resume.CompanyPopover",
-                    controller: this
-                }).then((oPopover) => {
-                    this.getView().addDependent(oPopover);
-                    this._oCompanyPopover = oPopover;
-                    oPopover.bindElement({ path: sBindingPath, model: "resume" });
-                    oPopover.openBy(oControl);
-                    return oPopover;
-                });
-            } else if (!this.isOpenDialog(this._oCompanyPopover, sBindingPath)) {
-                this._oCompanyPopover.bindElement({ path: sBindingPath, model: "resume" });
-                this._oCompanyPopover.openBy(oControl);
-            } else {
-                this._oCompanyPopover.close();
-            }
-        },
+				if (!this.isDialogOpen(this.oCompanyPopover, sPath)) {
+					this.oCompanyPopover.bindElement(sPath);
+					this.oCompanyPopover.openBy(oControl);
+				} else {
+					this.oCompanyPopover.close();
+				}
+			},
 
-        onPressCloseCompanyPopover: function (oEvent) {
-            this._oCompanyPopover.close();
-        }
-
-    });
-});
+			onPressCloseCompanyPopover(oEvent) {
+				this.oCompanyPopover.close();
+			}
+		});
+	}
+);
