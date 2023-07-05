@@ -1,92 +1,107 @@
-sap.ui.define([
-	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/UIComponent",
-	"sap/ui/core/Fragment",
-	"../util/themeHelper",
-	"../util/languageHelper"
-], function (Controller, UIComponent, Fragment, themeHelper, languageHelper) {
-	"use strict";
+sap.ui.define(
+	[
+		'sap/ui/core/mvc/Controller',
+		'sap/ui/core/UIComponent',
+		'sap/ui/Device',
+		'sap/m/MessageToast',
+		'../util/themeHelper',
+		'../util/languageHelper'
+	],
+	(Controller, UIComponent, Device, MessageToast, themeHelper, languageHelper) => {
+		'use strict';
 
-	return Controller.extend("ryndenko.controller.BaseController", {
+		return Controller.extend('vryndenko.controller.BaseController', {
+			// DEFAULT
 
-		getRouter: function () {
-			return UIComponent.getRouterFor(this);
-		},
+			getRouter() {
+				return UIComponent.getRouterFor(this);
+			},
 
-		getModel: function (sName) {
-			return this.getView().getModel(sName);
-		},
+			getModel(sName) {
+				return this.getView().getModel(sName);
+			},
 
-		setModel: function (oModel, sName) {
-			return this.getView().setModel(oModel, sName);
-		},
+			setModel(oModel, sName) {
+				return this.getView().setModel(oModel, sName);
+			},
 
-		getResourceBundle: function () {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
-		},
+			i18n(sKey, aParams) {
+				const oResourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
+				return oResourceBundle.getText(sKey, aParams);
+			},
 
-		// HEADER
-		onPressSendEmail: function () {
-			const sEmail = this.getModel("resume").getProperty("/Email");
-			sap.m.URLHelper.triggerEmail(sEmail, "Email from ryndenko.site website");
-		},
+			getContentDensityClass() {
+				return Device.support.touch ? 'sapUiSizeCozy' : 'sapUiSizeCompact';
+			},
 
-		onPressOpenOverflowMenu: function (oEvent) {
-			const oButton = oEvent.getSource();
+			// MENU
 
-            if (!this._oOverflowMenu) {
-                Fragment.load({
-					name: "ryndenko.fragment.OverflowMenu",
-					controller: this
-				}).then((oMenu) => {
-					this.getView().addDependent(oMenu);
-					this._oOverflowMenu = oMenu;
-					oMenu.openBy(oButton);
-					return oMenu;
-				});
-            } else {
-                this._oOverflowMenu.openBy(oButton);
-            }
-        },
+			async onPressOpenOverflowMenu(oEvent) {
+				const oButton = oEvent.getSource();
 
-		onPressTheme: function (sKey) {
-			themeHelper.setTheme(sKey);
-			this.getModel("appView").setProperty("/theme", sap.ui.core.Configuration.getTheme());
-		},
+				if (!this.oOverflowMenu) {
+					this.oOverflowMenu = await this.loadFragment({
+						name: 'vryndenko.fragment.OverflowMenu'
+					});
+				}
 
-		onPressLanguage: function (sKey) {
-			languageHelper.setLanguage(sKey);
-			// need to refresh to change controls language
-			location.reload();
-		},
+				this.oOverflowMenu.openBy(oButton);
+			},
 
-		onPressShareLink: function () {
-			const sLink = window.location.href;
-			const oMessageToast = sap.m.MessageToast;
-			navigator.clipboard.writeText(sLink).then(() => {
-				oMessageToast.show(`Website URL "'${sLink}'" has been copied to clipboard`);
-			}, (err) => {
-				oMessageToast.show("Could not copy website URL");
-			});
-		},
+			onPressNavigateToPage(sPage) {
+				this.getRouter().navTo(sPage);
+			},
 
-		onPressShowCode: function() {
-            const sWebsiteURL = "https://github.com/ryndenko/Resume";
-            sap.m.URLHelper.redirect(sWebsiteURL, true);
-        },
+			onPressSendEmail() {
+				const oModel = this.getModel();
+				const sEmail = oModel ? oModel.getProperty('/Email') : 'pzromp@gmail.com';
+				sap.m.URLHelper.triggerEmail(sEmail, 'Email from ryndenko.site website');
+			},
 
-		// Dialogs
-        isOpenDialog: function (oDialog, sBinndingPath) {
-            if (!oDialog) {
-                return false;
-            }
+			onPressSetTheme(sKey) {
+				themeHelper.setTheme(sKey);
+				const sThemeKey = themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme());
+				this.getModel('appView').setProperty('/theme', sThemeKey);
+			},
 
-			const oBindingContext = oDialog.getBindingContext("resume");
-            const bSamePath = sBinndingPath && oBindingContext ? oBindingContext.getPath() === sBinndingPath : true;
-			const bOpen = oDialog.isOpen();
-            return bOpen && bSamePath;
-        }
+			onPressSetLanguage(sKey) {
+				sap.ui.core.Configuration.setLanguage(sKey);
+				languageHelper.setLanguage(sKey);
+				location.reload(); // need to refresh to change controls language
+			},
 
-	});
+			async onPressShareLink() {
+				const sWebsiteURL = window.location.href;
+				const sSuccessMessage = this.i18n('msgSiteUrlCopied', [sWebsiteURL]);
+				const sErrorMessage = this.i18n('msgSiteUrlNotCopied');
+				this.copyToClipboard(sWebsiteURL, sSuccessMessage, sErrorMessage);
+			},
 
-});
+			async copyToClipboard(sValueToCopy, sSuccessMessage, sErrorMessage) {
+				try {
+					await navigator.clipboard.writeText(sValueToCopy);
+					MessageToast.show(sSuccessMessage);
+				} catch {
+					MessageToast.show(sErrorMessage);
+				}
+			},
+
+			onPressShowCode() {
+				const sWebsiteURL = 'https://github.com/ryndenko/ryndenko.site';
+				sap.m.URLHelper.redirect(sWebsiteURL, true);
+			},
+
+			// DIALOGS
+
+			isDialogOpen(oDialog, sBinndingPath) {
+				if (!oDialog) {
+					return false;
+				}
+
+				const bSamePath = oDialog.getBindingContext()?.getPath() === sBinndingPath;
+				const bOpen = oDialog.isOpen();
+				return bOpen && bSamePath;
+			}
+		});
+	}
+);
