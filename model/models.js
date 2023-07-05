@@ -1,29 +1,63 @@
-sap.ui.define([
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/Device",
-    "sap/ui/core/Configuration"
-], function (JSONModel, Device, Configuration) {
+sap.ui.define(
+	[
+		'sap/ui/model/json/JSONModel',
+		'sap/ui/Device',
+		'sap/ui/core/Configuration',
+		'../util/themeHelper',
+		'../util/languageHelper'
+	],
+	(JSONModel, Device, Configuration, themeHelper, languageHelper) => {
+		'use strict';
 
-    "use strict";
+		return {
+			// Device Model
 
-    return {
-        createDeviceModel: function () {
-            const oModel = new JSONModel(Device);
-            oModel.setDefaultBindingMode("OneWay");
-            return oModel;
-        },
+			createDeviceModel() {
+				const oModel = new JSONModel(Device);
+				oModel.setDefaultBindingMode('OneWay');
+				return oModel;
+			},
 
-        createResumeModel: function () {
-            const sLanguage = Configuration.getLanguage();
-            const oManifest = sap.ui.getCore().getComponent("container-ryndenko").getManifest();
-            const aSupportedLanguages = oManifest["sap.app"].i18n.supportedLocales;
-            if (!aSupportedLanguages.includes(sLanguage)) {
-                sLanguage = "en";
-            }
-            const sFilePath = `ryndenko/resource/data/Resume_${sLanguage}.json`;
-            const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
-            return oModel;
-        }
-    };
-}
+			// Data Models
+			createResumeModel() {
+				let sLanguage = languageHelper.getCurrentLanguage();
+				if (!languageHelper.getSupportedLanguages().includes(sLanguage)) {
+					sLanguage = languageHelper.getFallBackLanguage();
+				}
+
+				const sFilePath = `vryndenko/resource/data/Resume_${sLanguage}.json`;
+				const oModel = new JSONModel(sap.ui.require.toUrl(sFilePath));
+				oModel.setDefaultBindingMode('OneWay');
+				return oModel;
+			},
+
+			createCalendarModel() {
+				const oData = {
+					Email: 'pzromp@gmail.com',
+					Appointments: []
+				};
+				return new JSONModel(oData);
+			},
+
+			// View Models
+
+			createAppViewModel() {
+				const oData = {
+					theme: themeHelper.mapTheme(null, sap.ui.core.Configuration.getTheme())
+				};
+				return new JSONModel(oData);
+			},
+
+			createCalendarViewModel() {
+				const oData = {
+					busy: true,
+					fullDay: !!JSON.parse(localStorage.getItem('fullDay')),
+					startHour: 8,
+					endHour: 21,
+					currentDate: new Date()
+				};
+				return new JSONModel(oData);
+			}
+		};
+	}
 );
