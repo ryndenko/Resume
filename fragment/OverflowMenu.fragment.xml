@@ -31,7 +31,6 @@
         <MenuItem text="{i18n>btnLanguage}" icon="{i18n>iLanguage}">
             <MenuItem text="{i18n>btnEnglish}" press="onPressSetLanguage('en')"/>
             <MenuItem text="{i18n>btnRussian}" press="onPressSetLanguage('ru')"/>
-            <MenuItem text="{i18n>btnGerman}" press="onPressSetLanguage('de')"/>
         </MenuItem>
         <MenuItem text="{i18n>btnShareLink}" press="onPressShareLink"
             icon="{i18n>iShare}" startsSection="{device>/system/phone}"/>
