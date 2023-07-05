@@ -1,19 +1,19 @@
-sap.ui.define([
-   "./BaseController",
-   "sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
-   "use strict";
-   return BaseController.extend("ryndenko.controller.App", {
+sap.ui.define(['./BaseController', '../model/models'], (BaseController, models) => {
+	'use strict';
 
-      onInit: function () {
-         // apply content density mode to root view
-         this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
-         // set view model
-         const oViewModel = new JSONModel({
-            theme: sap.ui.core.Configuration.getTheme()
-         });
-         this.setModel(oViewModel, "appView");
-      }
+	return BaseController.extend('vryndenko.controller.App', {
+		onInit() {
+			// apply content density mode to root view
+			this.getView().addStyleClass(this.getContentDensityClass());
+			// set view model
+			this.setModel(models.createAppViewModel(), 'appView');
+			// attach routing matching
+			this.getRouter().attachRouteMatched(this.onRouteMatched, this);
+		},
 
-   });
+		onRouteMatched(oEvent) {
+			// set current page
+			this.getModel('appView').setProperty('/page', oEvent.getParameter('name'));
+		}
+	});
 });
