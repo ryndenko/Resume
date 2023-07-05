@@ -1,7 +1,7 @@
 sap.ui.define(['./BaseController', 'sap/m/IllustrationPool'], (BaseController, IllustrationPool) => {
 	'use strict';
 
-	return BaseController.extend('pharelyshau.controller.Home', {
+	return BaseController.extend('vryndenko.controller.Home', {
 		onInit() {
 			// register tnt illustration set
 			this.registerIllustrationSet('tnt', 'sap/tnt/themes/base/illustrations');
