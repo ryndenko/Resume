@@ -1,0 +1,101 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog stretch="{device>/system/phone}" resizable="true" draggable="true"
+        afterClose="onAfterCloseAppointmentDialog">
+        <customHeader>
+            <Toolbar style="Clear">
+                <Title class="phNoMargin" text="{= ${Mode} === 'create'
+                    ? ${i18n>ttlMakeAppointment} : ${i18n>ttlEditAppointment} }"/>                
+                <ToolbarSpacer/>
+                <Button visible="{device>/system/phone}" tooltip="{i18n>btnClose}"
+                    press="onPressCloseAppointmentDialog" icon="{i18n>iClose}"/>
+            </Toolbar>
+        </customHeader>
+        <VBox class="sapUiSmallMarginBeginEnd">
+            <!-- Title -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="{i18n>lTitle}:" labelFor="inpName"/>
+                <Input id="inpName" value="{Name}" valueLiveUpdate="true"
+                    placeholder="{i18n>phAppointmentTitle}"/>
+            </VBox>
+            <!-- Email -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="{i18n>lYourEmail}:" labelFor="inpEmail"/>
+                <Input id="inpEmail" required="true" type="Email" placeholder="{i18n>phEmail}"
+                    value="{path: 'Email', type: 'sap.ui.model.type.String',
+                        constraints: {search: '^((?!\\.)[\\w-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$'} }"/>
+                <!-- <Input required="true" type="Email" placeholder="your@email.com"
+                    value="{path: 'Email', type: '.types.email'}"/> -->
+            </VBox>
+            <!-- Date and Time -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="{i18n>lDateAndTime}:"/>
+                <HBox justifyContent="SpaceBetween"
+                    renderType="Bare" wrap="{= ${device>/system/phone} ? 'Wrap' : 'NoWrap' }">
+                    <Label width="0" text="{i18n>lStartDate}" labelFor="dtpStartDate"/> <!-- invsible -->
+                    <DateTimePicker id="dtpStartDate" change="onChangePicker($event ,'StartDate')"
+                        required="true" minutesStep="15" showCurrentDateButton="true"
+                        minDate="{= ${Mode} === 'create' ? ${view>/currentDate} : null }"
+                        value="{path: 'StartDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {style: 'medium/short'}}"/>
+                    <Label visible="{= !${device>/system/phone} }" text="—"
+                        class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>
+                    <Label width="0" text="{i18n>lEndDate}" labelFor="dtpEndDate"/> <!-- invsible -->
+                    <DateTimePicker id="dtpEndDate" change="onChangePicker($event ,'EndDate')"
+                        required="true" minutesStep="15" minDate="{StartDate}" showCurrentDateButton="true"
+                        value="{path: 'EndDate', mode: 'OneWay', type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {style: 'medium/short'}}"/>
+                </HBox>
+            </VBox>
+            <!-- Conference & Google Meet -->
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="{i18n>lConference}:" labelFor="inpConference"/>
+                <!-- Conference -->
+                <VBox visible="{= !${GoogleMeet}}">
+                    <Input id="inpConference" value="{Conference}" type="Url"
+                        valueState="{path: 'Conference', formatter: '.formatter.conferenceState'}"
+                        valueStateText="{path: 'Conference', formatter: '.formatter.conferenceStateText'}"
+                        placeholder="{i18n>phConference}"/>
+                    <Button text="{i18n>btnAddGoogleMeet}" width="100%" iconDensityAware="false"
+                        icon="/resource/image/GoogleMeetIcon.svg" press="onPressAddGoogleMeet"
+                        class="phButton"/>
+                </VBox>
+                <!-- Google Meet -->
+                <VBox visible="{= !!${GoogleMeet} }">
+                    <HBox justifyContent="SpaceBetween" renderType="Bare">
+                        <!-- Not Exsists yet -->
+                        <HBox visible="{= ${GoogleMeet} === 'willBeCreated' }"
+                            alignItems="Center" class="sapUiTinyMarginEnd" renderType="Bare">
+                            <Avatar src="/resource/image/GoogleMeetIcon.svg" displaySize="Custom"
+                                customDisplaySize="1.5rem" class="sapUiTinyMarginEnd"/>
+                            <Text text="Google Meet conference will be generated" />
+                        </HBox>
+                        <!-- Already Exists -->
+                        <Button visible="{= ${GoogleMeet} !== 'willBeCreated' }"
+                            text="{i18n>btnJoinWithGoogleMeet}" press="onPressJoinToConference"
+                            icon="/resource/image/GoogleMeetIcon.svg" iconDensityAware="false"
+                            class="phButton phButtonJoinToConference"/>
+                        <!-- Remove Button -->
+                        <Button icon="{i18n>iClose}" tooltip="Remove Google Meet conferencing"
+                            press="onPressRemoveGoogleMeet" type="Transparent"/>
+                    </HBox>
+                    <!-- Link when exists -->
+                    <Label visible="{= ${GoogleMeet} !== 'willBeCreated' }" text="{GoogleMeet}"/>
+                </VBox>
+            </VBox>
+            <!-- Agenda -->
+            <VBox class="sapUiSmallMarginTopBottom">
+                <Label text="{i18n>lAgenda}:" labelFor="inpDescription"/>
+                <TextArea id="inpDescription" width="100%" value="{Description}" valueLiveUpdate="true"
+                    rows="4" placeholder="{i18n>phAgenda}"/>
+            </VBox>
+        </VBox>
+        <beginButton>
+            <Button text="{= ${Mode} === 'create'? ${i18n>btnMake} : ${i18n>btnSave} }"
+                press="onPressCreateEditAppointment" type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button visible="{= !${device>/system/phone} }" text="{i18n>btnCancel}"
+                press="onPressCloseAppointmentDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
