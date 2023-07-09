@@ -7,7 +7,7 @@ scriptCryptoJS.src = 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/cry
 document.head.appendChild(scriptCryptoJS);
 
 const getAccessTokenFromServiceAccount = (function () {
-	const _url = 'https://www.googleapis.com/oauth2/v3/token';
+	const _url = 'https://www.googleapis.com/oauth2/v4/token';
 	const _grant_type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
 
 	function _main(_obj) {
